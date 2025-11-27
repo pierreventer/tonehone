@@ -1,13 +1,6 @@
-//
-//  ContentView.swift
-//  ToneHone
-//
-//  Created by Pierre Venter on 27/11/2025.
-//
-
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
@@ -17,6 +10,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
         .environmentObject(AppState())
 }

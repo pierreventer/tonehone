@@ -12,6 +12,29 @@ Date: 2025-02-17
 - **Web companion/marketing:** Next.js 14+, Vercel hosting for marketing and dashboard; React Query, Tailwind/Radix; protected app routes proxied to backend.
 - **Compliance/security:** GDPR-first, data stored in UK region, PII encryption at rest, audit logging, export/delete endpoints.
 
+## Sprints (execution breakdown)
+- **Sprint 0 (scaffold, done):** App target + SwiftUI shell (Hub, Thread, Suggestions), shared state/models, iOS 17 config.
+- **Sprint 1 (tone config + generation core):**
+  - Tone Config screen per conversation (sliders/presets, live preview, tone mismatch guard); accessible from Hub card and Thread header.
+  - Paste-in text from “them” to set context; trigger instant suggestions using current tone.
+  - Suggestions panel: 3–5 options with match scores and quick tweaks; copy-to-clipboard.
+  - Keyboard extension v0 shell wired to suggestion generator (copy-only).
+- **Sprint 2 (refinement + ingestion):**
+  - Iterative Refinement editor: keep/adjust spans, targeted rewrites, regenerate, history.
+  - Screenshot OCR flow with crop/review; platform detection; manual paste improvements.
+  - Tone shift log + warnings; apply/reuse tone profiles across conversations.
+  - Keyboard extension v1: recent threads + tone presets, paste text → instant suggestions inline.
+- **Sprint 3 (billing + compliance + insights seed):**
+  - Stripe credits + Pro, usage metering, per-tier rate limits.
+  - GDPR export/delete wired; UK residency enforced.
+  - Conversation health basics: needs-response badges, key moments, simple health score.
+  - Web companion shell (dashboard/thread read-only) on Vercel.
+- **Sprint 4 (polish + reminders):**
+  - Push/in-app reminders (needs response, credit low), snooze.
+  - Perf/resilience: context caching, image compression, error/offline messaging.
+  - Keyboard extension v2: quick tone switch, inline tone check, predictive snippet surfacing.
+  - UI polish toward ChatGPT-like feel (gestures/haptics/typography).
+
 ## Agent feedback (specialist lenses)
 - AI Engineer: Prioritize robust prompt pipeline with tone vectors, platform/person context, “why it works” rationales; GPT-4.1 (tunable) primary with Claude fallback; cache per-thread embeddings to cut token cost; log generations/selected options for post-hoc tuning; keep extension latency under 2s without on-device LLM.
 - Backend Architect: Define services for auth/billing, conversations/messages, tone profiles, AI generation, OCR ingestion, and analytics. Enforce rate limits per user/tier; async jobs for OCR and heavy LLM calls; idempotent webhooks for Stripe; signed URLs for uploads; observability (structured logs, traces).
@@ -29,10 +52,10 @@ Date: 2025-02-17
 - Auth, billing (Stripe credits + Pro), usage tracking; basic roles/limits per tier.
 - Conversation ingestion: manual add + screenshot OCR with crop/review/correction; storage to S3-equivalent with signed URLs; edit/delete/reorder messages; mark “key moments”; platform detection.
 - Conversation Hub + Thread View: 50+ conversations, filters/search/sort, “needs response,” unread counts, health badges, tone badges, platform badges; virtualized threads; jump-to-bottom; message edit/delete; export/share; archive.
-- Tone Profile System: sliders/presets, AI-suggested starting tone, per-person storage, mismatch warnings, versioning; tone shift log.
-- AI Suggestions: 3–5 options with tone match scores, reasoning snippets, variation types (safe/bold/playful/question/statement); quick-adjust buttons (funnier/shorter/less forward/etc.).
+- Tone Profile System: sliders/presets, AI-suggested starting tone, per-person storage, mismatch warnings, versioning; tone shift log; dedicated Tone Config surface per conversation.
+- AI Suggestions: 3–5 options with tone match scores, reasoning snippets, variation types (safe/bold/playful/question/statement); quick-adjust buttons (funnier/shorter/less forward/etc.); accepts pasted “their” text to set immediate context.
 - Iterative Refinement Editor: keep/adjust sections, targeted rewrite, regenerate, version history; pre-send tone guardrails.
-- Keyboard Extension v1 (iOS): quick access to recent threads + tone presets, generate/copy responses from any app; App Group storage; latency budget <2s; copy-only (no direct send); respects extension memory/time constraints.
+- Keyboard Extension v1 (iOS): quick access to recent threads + tone presets, generate/copy responses from any app; App Group storage; latency budget <2s; copy-only (no direct send); respects extension memory/time constraints; paste text in extension → instant suggestions.
 - Reliability/compliance: logging/metrics, Sentry, rate limits, PII encryption; GDPR export/delete; data stored in UK region; online-only (graceful messaging when offline).
 - Design: implement core design system tokens/components matching PRD palette/typography; 60fps interactions; HIG-aligned, minimal.
 

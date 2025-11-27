@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ToneHoneApp: App {
+    @StateObject private var appState = AppState()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(appState)
         }
     }
 }
